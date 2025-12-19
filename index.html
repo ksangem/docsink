@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DocsInk – AIVA Support Assistant</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    #logo-container {
+      background: #fff;
+      padding: 10px;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    #logo-container img {
+      max-height: 8vh;
+      max-width: 200px;
+      height: auto;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .floating-icon {
+      position: fixed;
+      bottom: 20px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: #1976d2;
+      color: white;
+      font-size: 28px;
+      text-align: center;
+      line-height: 60px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      z-index: 1000;
+    }
+
+    #voiceBtn {
+      right: 90px;
+    }
+
+    #chatBtn {
+      right: 20px;
+    }
+
+    .assistant-modal {
+      display: none;
+      position: fixed;
+      top: 60px;
+      left: 0;
+      width: 100%;
+      height: calc(100% - 60px);
+      background: rgba(0, 0, 0, 0.3);
+      z-index: 999;
+    }
+
+    .assistant-modal iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      background: red;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 4px 10px;
+      cursor: pointer;
+      z-index: 1001;
+    }
+  </style>
+
+  <!-- ✅ Retell Chat Widget Embed -->
+  <script
+    id="retell-widget"
+    src="https://dashboard.retellai.com/retell-widget.js"
+    type="module"
+    data-public-key="key_83a688660e4b77e7358e4c0b086d"
+    data-agent-id="agent_93b9bdc9efbab9a799cd6ec65a"
+    data-agent-version="1"
+    data-title="DocsInk"
+    data-logo-url="https://kiransangem2016.github.io/nalashaa_AIAgent/assets/Nalashaa_Logo1.png"
+    data-color="#1976d2"
+  ></script>
+</head>
+<body>
+
+  <!-- Logo -->
+  <div id="logo-container">
+    <img src="assets/Nalashaa_Logo1.png" alt="Nalashaa Logo">
+  </div>
+
+  <!-- Welcome -->
+  <div class="container">
+    <h1>Welcome to AIVA – DocsInk Support Assistant</h1>
+    <p>Click 🎤 for Voice or 💬 for Chat Assistant.</p>
+  </div>
+
+  <!-- ✅ Floating Action Buttons -->
+  <div id="voiceBtn" class="floating-icon" title="Voice Assistant">🎤</div>
+  <div id="chatBtn" class="floating-icon" title="Chat Assistant">💬</div>
+
+  <!-- ✅ Voice Assistant Modal -->
+  <div id="voiceModal" class="assistant-modal">
+    <button class="close-btn" onclick="document.getElementById('voiceModal').style.display='none'">Close ✖</button>
+    <iframe src="https://agency-w2v693.chat-dash.com/iframe/6943dc95b1d31d99f5a2cf73" allow="microphone" title="AIVA Voice Assistant"></iframe>
+  </div>
+
+  <!-- ✅ Voice Agent Script Loader -->
+  <script>
+    (function () {
+      if (window.chatWidgetScriptLoaded) return;
+
+      window.ChatWidgetConfig = {
+        agentId: "6943dc95b1d31d99f5a2cf73"
+      };
+
+      const chatWidgetScript = document.createElement("script");
+      chatWidgetScript.type = 'text/javascript';
+      chatWidgetScript.src = "https://storage.googleapis.com/cdwidget/dist/assets/js/main.js";
+      document.body.appendChild(chatWidgetScript);
+
+      window.chatWidgetScriptLoaded = true;
+    })();
+
+    // 🎤 Voice Assistant Click
+    document.getElementById("voiceBtn").onclick = function () {
+      document.getElementById("voiceModal").style.display = "block";
+    };
+
+    // 💬 Chat Assistant Click
+    document.getElementById("chatBtn").onclick = function () {
+      // Toggle Retell Chat widget
+      const chatEvent = new CustomEvent("retell-toggle-chat");
+      window.dispatchEvent(chatEvent);
+    };
+  </script>
+
+</body>
+</html>
