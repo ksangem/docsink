@@ -157,5 +157,25 @@
     };
   </script>
 
+  <script>
+  (function () {
+    function hideCdWidget() {
+      const el = document.getElementById("cd-widget");
+      if (el) {
+        el.style.display = "none";
+        el.style.visibility = "hidden";
+        el.style.pointerEvents = "none";
+      }
+    }
+
+    // Run once on page load
+    window.addEventListener("load", hideCdWidget);
+
+    // Watch for late injection (Chat-Dash injects after load)
+    const observer = new MutationObserver(hideCdWidget);
+    observer.observe(document.body, { childList: true, subtree: true });
+  })();
+</script>
+
 </body>
 </html>
